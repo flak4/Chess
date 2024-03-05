@@ -42,5 +42,5 @@ peon_14 = p.Peon('b', 1, 'f7')
 peon_15 = p.Peon('b', 1, 'g7')
 peon_16 = p.Peon('b', 1, 'h7')
 
-#SET INICIAL DE PIEZAS
+#SET INICIAL DE PIEZAS (Tablero.setup() toma esta lista como argumento)
 piezas = [reina_1, peon_5, peon_12]

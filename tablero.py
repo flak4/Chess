@@ -12,42 +12,25 @@ class Tablero():
 
     def setup(self, piezas=config.piezas):
         for p in piezas:
-            self.tablero[p.posicion[0], p.posicion[1]] = p
-            self.status[p.posicion[0], p.posicion[1]] = int(p.pieza)
+            self.tablero[p.posicion[0], p.posicion[1]] = p #un tablero de objetos
+            self.status[p.posicion[0], p.posicion[1]] = int(p.pieza) #un tablero de números
     
 
-    def is_legal(self, pieza, casillas_accesibles, casilla1):
+    def is_legal(self, pieza, casillas_accesibles, casilla1): #pieza es un objeto, casillas accesibles en un futuro debe contener información de los jaques y demas vainas
         movimiento = casilla1 - pieza.posicion
-        print(f'movimiento: {movimiento}')
-        direccion0,direccion1 = tools.get_direccion(movimiento)
-        print(f'dir: {tools.get_direccion(movimiento)}')
-    
-        i1, i0 = max(int(pieza.posicion[0]), int(casilla1[0])), min(int(pieza.posicion[0]), int(casilla1[0])) 
-        j1, j0 = max(int(pieza.posicion[1]), int(casilla1[1])), min(int(pieza.posicion[1]), int(casilla1[1]))
+        direccion = tools.get_direccion(movimiento) #vemos en que dirección tenemos que comprobar el movimiento
+        x = pieza.posicion #inicializamos la casilla para las iteraciones
+        legal = True
+        while not np.array_equal(x, casilla1): #i.e., x no es la casilla a la que queremos mover
+            x = x + direccion #vemos la siguiente casilla
+            if casillas_accesibles[x[0], x[1]] == pieza.pieza: #casillas_accesibles es el tablero de movimientos de la pieza + el tablero de posiciones (será igual a .pieza si la casilla está vacía) 
+                continue #vemos la siguiente
+            else: #por el motivo que sea, no es una casilla accesible directamente (captura o pieza aliada)
+                legal = False 
+                break
+            #futura implementacion: una vez decidido codigo de numeros estaría que por ejemplo, casilla = 4 ==> captura (es legal por lo que se añade), elif casilla = 2 ==> pieza aliada (ilegal)
+        return legal
+                
 
-        submatrix = np.diag(np.fliplr(casillas_accesibles),k=-1)
-    
-        print(f'subd: {submatrix}')
-
-'''
-        if np.array_equal(dir, np.array([1,1])):
-            #print(np.fliplr(submatrix)) #gira con respecto la horizontal
-            camino = np.diag(np.fliplr(submatrix))
-            if np.all(camino != 0):
-                print(camino)
-                print('bien')
-            else:
-                print('puede no ser legal')
-
-        elif np.array_equal(dir, np.array([1,0])):
-            print('caso2')
-
-        elif np.array_equal(dir, np.array([0,1])):
-            print('caso3')
-
-        #para vectores columna (dir = [1,0])
-        #print(submatrix[i0+1:i1]) 
-
-'''
 
 
