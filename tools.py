@@ -16,7 +16,7 @@ def get_direccion(move):
             direccion = np.array([-1, 0]) #distinta de cero pero negativo?
         elif move[0] > 0:
             direccion = np.array([1, 0]) # o positivo? 
-        elif move[1] < 0: 
+        elif move[1] < 0: #etc
             direccion = np.array([0, -1])
         elif move[1] > 0:
             direccion = np.array([0, 1])

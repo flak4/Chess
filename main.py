@@ -6,7 +6,7 @@ game = True
 white_to_move = True
 
 chess = table.Tablero()
-chess.setup() #se inician los dos tableros (obj y num) para las piezas incluidas en la lista de piezas de config
+chess.setup() #se inician los dos tableros (obj y num) con las piezas incluidas en la lista de piezas de config
 print(chess.tablero)
 
 while game:
